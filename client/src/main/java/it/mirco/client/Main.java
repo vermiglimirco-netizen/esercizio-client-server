@@ -10,46 +10,45 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-         try (Socket socket = new Socket("localhost", 5000)) {
-            
-            //il client cerca il server e apre la socket
+        try (Socket socket = new Socket("localhost", 5000)) {
+
+            // il client cerca il server e apre la socket
 
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-            //creo il canale di uscita
-
-            //accendo la tastiera
-            Scanner tastiera = new Scanner(System.in);
-
-            do{
-            //prendo la tastiera
-            String messaggioin = tastiera.nextLine();
-
-            out.println(messaggioin);
-            //invio il nessaggio sul canale
+            // creo il canale di uscita
 
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            //apre il canale per leggere
+            // apre il canale per leggere
 
-            String messaggioout= in.readLine();
-            //legge il messaggio dal canale
+            // accendo la tastiera
+            Scanner tastiera = new Scanner(System.in);
 
-            System.out.println(messaggioout);
-
-            }while
-            (messaggioin=="exit" || messaggioin=="EXIT")
-
-            in.close();
-
-            out.close();
+            String messaggioin = null;
+            do {
 
 
-            
+                // prendo la tastiera
+                messaggioin = tastiera.nextLine();
 
-        
+
+                
+                out.println(messaggioin);
+                // invio il nessaggio sul canale
+
+
+                String messaggioout = in.readLine();
+                // legge il messaggio dal canale
+
+                System.out.println(messaggioout);
+
+            }  while
+            // se scrivo exit lui interrompe
+            (!messaggioin.equalsIgnoreCase("exit"));
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-         }
+        }
 
     }
 }

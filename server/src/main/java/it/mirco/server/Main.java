@@ -23,22 +23,28 @@ public class Main {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             //apre il canale per leggere
-
-            String messaggio= in.readLine();
-            //legge il messaggio dal canale
-
-            messaggio = messaggio.toUpperCase();
-            //inverte il maiuscolo minuscolo
-
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             //creo il canale di uscita
-            
-            out.println(messaggio);
-            //invio il nessaggio sul canale
 
-            in.close();
+            String messaggio = null;
 
-            out.close();
+            do 
+            {
+                messaggio= in.readLine();
+                //legge il messaggio dal canale
+
+                messaggio = messaggio.toUpperCase();
+                //inverte il maiuscolo minuscolo
+
+                if(messaggio.equalsIgnoreCase("exit"))
+                    messaggio="uscito";
+                
+                out.println(messaggio);
+                //invio il nessaggio sul canale
+
+            } while
+            (!messaggio.equalsIgnoreCase("exit"));
+
 
 
         } catch (IOException e) {
